@@ -1,38 +1,87 @@
-.App {
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #0398E5;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.App{
+  background-color: white;
+  width:500px;
+  height: auto;
+  border-radius: 10px;
+}
+.heading{
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  font-size:30px;
+  font-family:'Times New Roman', Times, serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-around;
+  padding: 7px;
+}
+.title{
+  font-weight: bold;
 }
 
-.App-link {
-  color: #61dafb;
+.in{
+  width: 300px;
+  padding:5px;
+  font-size: 20px;
+  margin: 10px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main{
+  display: grid;
+  place-items: center;
 }
+.list-div{
+  margin:5px;
+}
+.list{
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  -webkit-box-shadow: 3px 4px 19px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 4px 19px -4px rgba(0,0,0,0.75);
+  box-shadow: 3px 4px 19px -4px rgba(0,0,0,0.75);  
+  font-size: 20px;
+  margin: 5px;
+  border-radius: 25px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+input:focus::placeholder {
+  color: transparent;
+}
+.innerHeading{
+  padding: 10px;
+}
+.button-div{
+  margin: 10px;
+}
+.edit{
+  margin-right: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: transparent;
+  border-radius: 2px;
+}
+.edit:hover{
+  background-color:rgb(27, 219, 27);
+}
+.delete:hover{
+  background-color:rgb(245, 43, 43);
+}
+.delete{
+  cursor: pointer;
+  background: transparent;
+  border: transparent;
+  border-radius: 2px;
+}
+/* .checkbox{
+  margin: 3px;
+} */
