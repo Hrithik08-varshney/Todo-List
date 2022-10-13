@@ -73,9 +73,16 @@ function App() {
   },[arr])
 
   const handleCheckbox=(valIndex)=>{
-     arr[valIndex].check=true;
      console.log(arr[valIndex],"checkbox arr");
+     if(arr[valIndex].check===false){
+      arr[valIndex].check=true;
      setInpObj({...inpObj,check:true});
+     }
+     else
+     {
+      arr[valIndex].check=false;
+      setInpObj({...inpObj,check:false});
+     }
      setDoc(doc(db, "tasks", dateVal), {
         date: dateVal,
         tasks: [...arr],
