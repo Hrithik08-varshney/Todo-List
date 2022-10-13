@@ -34,12 +34,19 @@ body{
   padding:5px;
   font-size: 20px;
   margin: 10px;
+  border:none;
+  border-bottom:1px solid #0398E5;
+  outline: none;
+  font-family: cursive;
+}
+.in::placeholder{
+  color: #0398E5;
 }
 .main{
   display: grid;
   place-items: center;
 }
-.list-div{
+.regular-list-div{
   margin:5px;
 }
 .list{
@@ -52,7 +59,8 @@ body{
   font-size: 20px;
   margin: 5px;
   border-radius: 25px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: cursive;
+
 }
 input:focus::placeholder {
   color: transparent;
@@ -82,6 +90,41 @@ input:focus::placeholder {
   border: transparent;
   border-radius: 2px;
 }
-/* .checkbox{
-  margin: 3px;
-} */
+.checkbox{
+  margin: 5px;
+}
+.regular{
+  margin-bottom: 5px;
+}
+.add-habit{
+  background-color: red;
+  border: transparent;
+  padding: 3px;
+  margin-right: 3px;
+  border-radius: 5px;
+  color: white;
+}
+.add-habit:hover{
+  background-color: black;
+}
+
+@media (min-width:410px) and (max-width:510px){
+  .App{
+    width:400px;
+  }
+}
+@media (max-width:410px){
+  .App{
+    width:300px;
+  }
+  .heading{
+    font-size:20px;
+  }
+  .in{
+    width: 240px;
+  }
+  .list{
+    width: 240px;
+    font-size: 18px;
+  }
+}

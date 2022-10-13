@@ -1,36 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
-
-
-/* 
 import "./App.css";
+  import { db } from "./firebase-config";
 import { useState, useRef, useEffect } from "react";
+import { collection, getDocs, addDoc, doc, setDoc } from "firebase/firestore";
 function App() {
   const [val, setVal] = useState(""); //for setting input value
   const [dateVal, setDateVal] = useState(""); //date state
- const [setObj,updateSetObj]=useState({
-  index:"",
-  value:"",
-  completed:""
- })
+  const inp = useRef(null);
+  const usersCollectionRef = collection(db, "tasks"); //taking collection reference
+  const [arr, setArr] = useState([]); //adding value to an array when input value converted to null
 
-  const inp = useRef(null); 
-  var request;
   useEffect(() => {
     const d = new Date();
     var date = d.getDate();
@@ -44,26 +22,25 @@ function App() {
     }
     const fullDate = date + "-" + month + "-" + year;
     setDateVal(fullDate);
-  }, []);
+    //------------------------------firestore get
+    const getTasks = async () => {
+      const data = await getDocs(usersCollectionRef);
+      data?.docs?.map((item)=>{
+        if(item?.data().date===dateVal){
+          // console.log(item?.data());
+          if(item?.data().tasks===undefined)
+          setArr([]);
+          else
+          setArr([...arr, ...item.data().tasks])
+        }
+      })
+    };
+    getTasks();
+  }, [dateVal]);
 
-  let db = null;
+  
 
-  const getLocalItems=()=>{
-    let list=localStorage.getItem('items');
-    if(list){
-      return JSON.parse(localStorage.getItem('items'))
-    }
-    else{
-      return [];
-    }
-  }
-
-  const [arr, setArr] = useState(getLocalItems()); //adding value to an array when input value converted to null
-
-   useEffect(()=>{
-    localStorage.setItem('items', JSON.stringify(arr));
-   },[arr])
-   // -------------------------------------------------submit handler
+  // -------------------------------------------------submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
     if (val === "") {
@@ -72,12 +49,18 @@ function App() {
       alert("Value Already Exists");
     } else {
       inp.current.blur();
-      setArr((oldList) => {
-        return [...oldList, val];
+      setArr([...arr,val]);
+    
+      console.log(arr, "added in array");
+      
+      setDoc(doc(db, "tasks", dateVal), {
+        date: dateVal,
+        tasks: [...arr, val],
       });
       setVal("");
     }
   };
+
   const editedList = (valIndex) => {
     inp.current.value = arr[valIndex];
     setVal(inp.current.value);
@@ -85,13 +68,18 @@ function App() {
     arr.splice(valIndex, 1);
     console.log(arr);
   };
-    const deleteList = (e) => {
-    setArr((oldList) => {
-      return oldList.filter((arrElem, index) => {
-        return index !== e;
-      });
+
+  const deleteList = (e) => {
+    const newArr = arr.filter((arrElem, index) => index !== e);
+
+    setDoc(doc(db, "tasks", dateVal), {
+      date: dateVal,
+      tasks: newArr,
     });
+
+    setArr(newArr);
   };
+
   return (
     <div className="App">
       <div className="heading">
@@ -108,12 +96,13 @@ function App() {
             ref={inp}
           ></input>
         </form>
-        <div className="list-div">
-          {arr.map((item, index) => {
+        <div className="regular-list-div">
+           {arr.map((item, index) => {
             return (
-            
               <div key={index} className="list">
+              
                 <h3 className="innerHeading">
+               <input type="checkbox" className="checkbox"/> 
                 {item}
                 </h3>
                 <div className="button-div">
@@ -144,4 +133,3 @@ function App() {
 }
 
 export default App;
- */
